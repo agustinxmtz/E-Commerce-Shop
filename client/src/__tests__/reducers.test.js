@@ -82,3 +82,15 @@ test('Add_MULTIPLE_TO_CART', () => {
     expect(newState.cart.length).toBe(4);
     expect(initialState.cart.length).toBe(2);
 });
+
+test('REMOVE_FROM_CART', () => {
+    let newState1 = reducer(initialState, {
+        type: REMOVE_FROM_CART,
+        _id: '1'
+    });
+
+    // cart is still open
+    expect(newState1.cartOpen).toBe(true);
+
+    // the second item should now be first
+})
