@@ -1,6 +1,4 @@
-import { reducer } from '../utils/reducers';
-
-// import our actions 
+// import our actions
 import {
     UPDATE_PRODUCTS,
     UPDATE_CATEGORIES,
@@ -12,6 +10,8 @@ import {
     CLEAR_CART,
     TOGGLE_CART
 } from '../utils/actions';
+
+import reducer from '../utils/reducers';
 
 // create a sample of what our global state will look like
 const initialState = {
@@ -33,6 +33,8 @@ const initialState = {
     cartOpen: false
 };
 
+
+// ============= PRODUCT/CATEGORY TESTS START =====================================================
 test('UPDATE_PRODUCTS', () => {
     let newState = reducer(initialState, {
         type: UPDATE_PRODUCTS,
@@ -62,7 +64,11 @@ test('UPDATE_CURRENT_CATEGORY', () => {
     expect(newState.currentCategory).toBe('2');
     expect(initialState.currentCategory).toBe('1');
 });
+// ======== PRODUCT/CATEGORY TESTS END ========================================================
 
+
+
+// ============= CART TESTS START =================================================================
 test('ADD_TO_CART', () => {
     let newState = reducer(initialState, {
         type: ADD_TO_CART,
@@ -73,7 +79,7 @@ test('ADD_TO_CART', () => {
     expect(initialState.cart.length).toBe(2);
 });
 
-test('Add_MULTIPLE_TO_CART', () => {
+test('ADD_MULTIPLE_TO_CART', () => {
     let newState = reducer(initialState, {
         type: ADD_MULTIPLE_TO_CART,
         products: [{}, {}]
@@ -92,7 +98,7 @@ test('REMOVE_FROM_CART', () => {
     // cart is still open
     expect(newState1.cartOpen).toBe(true);
 
-    // the second item should now be first
+    // the second item should now be the first
     expect(newState1.cart.length).toBe(1);
     expect(newState1.cart[0]._id).toBe('2');
 
@@ -129,20 +135,22 @@ test('CLEAR_CART', () => {
 
     expect(newState.cartOpen).toBe(false);
     expect(newState.cart.length).toBe(0);
+    
     expect(initialState.cart.length).toBe(2);
 });
 
 test('TOGGLE_CART', () => {
-    let newState = reducer(initialState, {
+    let newState1 = reducer(initialState, {
         type: TOGGLE_CART
     });
 
-    expect(newState.cartOpen).toBe(true);
+    expect(newState1.cartOpen).toBe(true);
     expect(initialState.cartOpen).toBe(false);
 
-    let newState2 = reducer(newState, {
+    let newState2 = reducer(newState1, {
         type: TOGGLE_CART
     });
 
     expect(newState2.cartOpen).toBe(false);
 });
+// ================== CART TESTS END ===============================================================
